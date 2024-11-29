@@ -1,4 +1,9 @@
+import bcrypt from "bcrypt";
+import { StatusCodes } from "http-status-codes";
+
+import { createJWT } from "../common/authutils.js";
 import userRepository from "../repositories/userRepository.js";
+import ClientError from "../utils/errors/clientError.js";
 import ValidationError from "../utils/errors/validationError.js";
 
 export const signupService = async (data) => {
@@ -23,3 +28,35 @@ export const signupService = async (data) => {
         }
     }
 };
+
+export const signInService = async (data) => {
+    try{
+        const user = await userRepository.getUserByEmail(data.email);
+        if(!user) {
+            throw new ClientError({
+                explanation: 'Inavalid data sent from the client',
+                messgae: 'User does not exist',
+                statusCode: StatusCodes.NOT_FOUND
+            });
+        }
+
+        // match the incoming password with the hashed password
+        const isMatch = bcrypt.compareSync(data.password, user.password);
+        if(!isMatch) {
+            throw new ClientError({
+                explanation: 'Inavalid data sent from the client',
+                messgae: 'Invalid password, please try again',
+                statusCode: StatusCodes.BAD_REQUEST
+            });
+        }
+
+        return {
+            username: user.username,
+            avatar: user.avatar,
+            email: user.email,
+            token: createJWT({ id: user._id, email: user.email})
+        }
+    } catch (error) {
+        console.log("User Service Error", error);
+    }
+}
