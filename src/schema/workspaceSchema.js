@@ -26,10 +26,10 @@ const workspaceSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Join code is required'],
     },
-    channels: {
+    channels: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Channel'
-    }
+    }]
 });
 
 

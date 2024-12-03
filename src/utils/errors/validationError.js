@@ -10,7 +10,7 @@ class ValidationError extends Error {
         });
         this.explanation = explanation;
         this.message = message;
-        this.statusCode = StatusCodes
+        this.statusCode = StatusCodes.BAD_REQUEST;
     }
 }
 

@@ -1,9 +1,10 @@
 import { StatusCodes } from "http-status-codes";
-import Workspace from "../schema/workspaceSchema.js";
+
 import User from "../schema/user.js";
-import crudRepository from "./crudRepository.js";
-import ClientError from "../utils/clientError.js";
+import Workspace from "../schema/workspaceSchema.js";
+import ClientError from "../utils/errors/clientError.js";
 import channelRepository from "./channelRepository.js";
+import crudRepository from "./crudRepository.js";
 
 const workspaceRepository = {
     ...crudRepository(Workspace),
@@ -83,11 +84,11 @@ const workspaceRepository = {
             });
         }
 
-        const isChannelAlreadyPartofWorkspace = workspace.channels.find(
+        const isChannelAlreadyPartOfWorkspace = workspace.channels.find(
             (channel) => channel.name === channelName
         );
 
-        if(isChannelAlreadyPartofWorkspace){
+        if(isChannelAlreadyPartOfWorkspace){
             throw new ClientError({
                 explanation: 'Invalid data sent from client',
                 message: 'Channel already part of workspace',
