@@ -26,7 +26,7 @@ const isUserAdminOfWorkspace = (workspace, userId) => {
   return !!response; // Return true if a matching admin is found
 };
 
-const isUserMemberOfWorkspace = (workspace, userId) => {
+export const isUserMemberOfWorkspace = (workspace, userId) => {
   return workspace.members.find(
     (member) => 
       member?.membersId?.toString() === userId._id?.toString()
