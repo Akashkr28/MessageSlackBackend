@@ -1,6 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 import { v4 as uuidv4 } from 'uuid';
 
+import { workspaceJoinMail } from '../common/mailObject.js';
+import { addEmailtoMailQueue } from '../producers/mailQueueProducer.js';
 import channelRepository from '../repositories/channelRepository.js';
 import userRepository from '../repositories/userRepository.js';
 import workspaceRepository from "../repositories/workspaceRepository.js";
@@ -252,6 +254,13 @@ export const addMemberToWorkspaceService = async (workspaceId, membersId, role, 
       });
     }
     const response = await workspaceRepository.addMemberToWorkspace(workspaceId, membersId, role);
+
+    addEmailtoMailQueue({
+      ...workspaceJoinMail(workspace),
+      to: isValidUser.email
+    });
+    
+    
     return response;
   } catch (error) {
     console.log('Add member to workspace service error', error);
