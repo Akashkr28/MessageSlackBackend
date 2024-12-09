@@ -7,6 +7,14 @@ import userRepository from "../repositories/userRepository.js";
 export const isMemberPartOfWorksaceService = async (wokspaceId, memberId) => {
     const workspace = await workspaceRepository.getById(wokspaceId);
 
+    if(!workspace) {
+        throw new ClientError({
+            explanation: 'Workspace does not exist',
+            message: 'Workspace does not exist',
+            statusCode: StatusCodes.NOT_FOUND
+          });
+    }
+
     const isUserMember = isUserMemberOfWorkspace(workspace, memberId);
 
     if(!isUserMember) {
