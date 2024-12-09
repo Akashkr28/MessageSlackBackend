@@ -1,13 +1,11 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 
-
-
+import bullServerAdapter from "./config/bullBoardConfig.js";
 import connectDB from "./config/dbConfig.js";
 // import mailer from "./config/mailConfig.js";
 import { PORT } from "./config/serverConfig.js";
 import apiRouter from "./router/apiRouter.js";
-import bullServerAdapter from "./config/bullBoardConfig.js";
 
 
 const app = express();
