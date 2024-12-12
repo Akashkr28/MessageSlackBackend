@@ -1,17 +1,22 @@
 import { StatusCodes } from "http-status-codes";
-
+import { getMessagesService } from "../services/messageService.js";
 import { customErrorResponse, internalErrorResponse, successResponse } from "../common/responseObjects.js";
-import { isMemberPartOfWorksaceService } from "../services/memberService.js";
 
-export const isMemberPartOfWorkspaceController = async function (req, res) {
+export const getMessages = async (req, res) => {
     try {
-        const response = await isMemberPartOfWorksaceService(req.params.workspaceId, req.user);
+        const messages = await getMessagesService(
+            {
+            channelId: req.params.channelId,
+            },
+            req.query.page || 1,
+            req.query.limit || 20
+        );
 
         return res
             .status(StatusCodes.OK)
-            .json(successResponse(response, "User is a member of the workspace"));
+            .json(successResponse(messages, "Messages fetched successfully"));
     } catch (error) {
-        console.log('User Controller Error', error);
+        console.log('Message controller error', error);
         if(error.statusCode){
             return res.status(error.statusCode).json(customErrorResponse(error));
         }
