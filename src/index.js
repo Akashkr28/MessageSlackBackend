@@ -7,6 +7,7 @@ import bullServerAdapter from "./config/bullBoardConfig.js";
 import connectDB from "./config/dbConfig.js";
 // import mailer from "./config/mailConfig.js";
 import { PORT } from "./config/serverConfig.js";
+import messageHandlers from "./controllers/messageSocketController.js";
 import apiRouter from "./router/apiRouter.js";
 
 
@@ -29,17 +30,17 @@ app.get('/ping', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected', socket.id);
+    // console.log('a user connected', socket.id);
 
-    socket.on('messageFromClient', (data) => {
-        //To receive a message from client
-        console.log('Message from Client', data);
+    // socket.on('messageFromClient', (data) => {
+    //     //To receive a message from client
+    //     console.log('Message from Client', data);
 
-        //To broadcast a message to all the clients
-        io.emit('new message', data.toUpperCase());
-    })
+    //     //To broadcast a message to all the clients
+    //     io.emit('new message', data.toUpperCase());
+    // })
 
-
+    messageHandlers(io, socket);
 
 
 /*A Setup to send a message to client */   
