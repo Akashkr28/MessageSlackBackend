@@ -7,7 +7,8 @@ import bullServerAdapter from "./config/bullBoardConfig.js";
 import connectDB from "./config/dbConfig.js";
 // import mailer from "./config/mailConfig.js";
 import { PORT } from "./config/serverConfig.js";
-import messageHandlers from "./controllers/messageSocketController.js";
+import MessageSockethandlers from "./controllers/messageSocketController.js";
+import ChannelSockethandlers from "./controllers/channelSocketController.js";
 import apiRouter from "./router/apiRouter.js";
 
 
@@ -40,7 +41,8 @@ io.on('connection', (socket) => {
     //     io.emit('new message', data.toUpperCase());
     // })
 
-    messageHandlers(io, socket);
+    MessageSockethandlers(io, socket);
+    ChannelSockethandlers(io, socket);
 
 
 /*A Setup to send a message to client */   
