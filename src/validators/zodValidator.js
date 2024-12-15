@@ -14,7 +14,7 @@ export const validate = (schena) => {
                 explanation.push(key.path[0] + ' ' + key.message);
                 errorMessage += ' : ' + key.path[0] + ' ' + key.message;
             });
-            res.status[StatusCodes.BAD_REQUEST].json(
+            res.status(StatusCodes.BAD_REQUEST).json(
                 customErrorResponse({
                     message: 'Validation error' + errorMessage,
                     explanation: explanation
