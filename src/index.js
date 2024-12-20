@@ -1,8 +1,8 @@
+import cors from "cors";
 import express from "express";
 import { createServer } from "http";
 import { StatusCodes } from "http-status-codes";
 import { Server } from "socket.io";
-import cors from "cors";
 
 import bullServerAdapter from "./config/bullBoardConfig.js";
 import connectDB from "./config/dbConfig.js";
