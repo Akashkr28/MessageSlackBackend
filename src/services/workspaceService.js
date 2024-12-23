@@ -208,6 +208,19 @@ export const updateWorkspaceService = async (workspaceId, workspaceData, userId)
   }
 }
 
+export const resetWorkspaceJoinCodeService = async (workspaceId, userId) => {
+  try {
+    const newJoinCode = uuidv4().substring(0, 6).toUpperCase();
+    const updatedWorkspace = await updateWorkspaceService(workspaceId, {
+      joinCode: newJoinCode
+    }, userId);
+    return updatedWorkspace;
+  } catch (error) {
+    console.log('Get workspace by join code service error', error);
+    throw error;
+  }
+};
+
 export const addMemberToWorkspaceService = async (workspaceId, membersId, role, userId) => {
   try {
 

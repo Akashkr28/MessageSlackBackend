@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 
 import { customErrorResponse, internalErrorResponse, successResponse } from "../common/responseObjects.js";
-import { addChannelToWorkspaceService, addMemberToWorkspaceService, createWorkspaceService, deleteWorkSpaceService, getWorkspaceByJoinCodeService, updateWorkspaceService } from "../services/workspaceService.js";
+import { addChannelToWorkspaceService, addMemberToWorkspaceService, createWorkspaceService, deleteWorkSpaceService, getWorkspaceByJoinCodeService, resetWorkspaceJoinCodeService, updateWorkspaceService } from "../services/workspaceService.js";
 import { getWorkspaceUserIsMemberOfService } from "../services/workspaceService.js";
 import { getWorkspaceService } from "../services/workspaceService.js";
 
@@ -191,3 +191,24 @@ export const addChannelToWorkspaceController = async (req, res) => {
         .json(internalErrorResponse(error));
     }
 };
+
+export const resetJoinCodeController = async (req, res) => {
+    try {
+        const response = await resetWorkspaceJoinCodeService(
+            req.params.workspaceId,
+            req.user
+        );
+        return res
+            .status(StatusCodes.OK)
+            .json(successResponse(response, "Join code reset successfully"));
+    } catch (error) {
+        console.log('Reset join code controller error', error);
+        if(error.statusCode){
+            return res.status(error.statusCode).json(customErrorResponse(error));
+        }
+
+        return res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(internalErrorResponse(error));
+    }
+}
