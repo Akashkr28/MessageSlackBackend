@@ -314,3 +314,37 @@ export const addChannelToWorkspaceService = async (workspaceId, channelName, use
     throw error;
   }
 }
+
+export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
+  try {
+    const workspace = await workspaceRepository.getWorkspaceDetailsById(workspaceId);
+
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace does not exist',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+
+    if(workspace.joinCode !== joinCode) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Invalid join code',
+        statusCode: StatusCodes.UNAUTHORIZED
+      })
+    }
+
+    const updatedworkspace = await workspaceRepository.addMemberToWorkspace(
+      workspaceId,
+      userId,
+      'member'
+    );
+
+    return updatedworkspace;
+
+  } catch (error) {
+    console.log('Join workspace service error', error);
+    throw error;
+  }
+}
