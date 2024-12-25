@@ -335,13 +335,13 @@ export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
       })
     }
 
-    const updatedworkspace = await workspaceRepository.addMemberToWorkspace(
+    const updatedWorkspace = await workspaceRepository.addMemberToWorkspace(
       workspaceId,
       userId,
       'member'
     );
 
-    return updatedworkspace;
+    return updatedWorkspace;
 
   } catch (error) {
     console.log('Join workspace service error', error);
