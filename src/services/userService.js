@@ -78,7 +78,7 @@ export const verifyTokenService = async (token) => {
 
 export const signInService = async (data) => {
     try{
-        const user = await userRepository.getByEmail(data.email);
+        const user = await userRepository.getUserByEmail(data.email);
         if(!user) {
             throw new ClientError({
                 explanation: 'Inavalid data sent from the client',

@@ -10,8 +10,8 @@ import connectDB from "./config/dbConfig.js";
 import { PORT } from "./config/serverConfig.js";
 import ChannelSockethandlers from "./controllers/channelSocketController.js";
 import MessageSockethandlers from "./controllers/messageSocketController.js";
-import apiRouter from "./router/apiRouter.js";
 import { verifyEmailController } from "./controllers/workspaceController.js";
+import apiRouter from "./router/apiRouter.js";
 
 
 const app = express();
