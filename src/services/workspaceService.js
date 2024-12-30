@@ -24,7 +24,6 @@ const isUserAdminOfWorkspace = (workspace, userId) => {
       member.role === 'admin'
   );
 
-  console.log('Admin Check Result:', response);
   return !!response; // Return true if a matching admin is found
 };
 
