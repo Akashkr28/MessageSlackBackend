@@ -23,7 +23,9 @@ const mesageSchema = new mongoose.Schema({
         ref: 'Workspace',
         required: [true, 'Workspace id is required'],
     }    
-});
+},
+ { timestamps: true }
+);
 
 const Message = mongoose.model('Message', mesageSchema);
 
