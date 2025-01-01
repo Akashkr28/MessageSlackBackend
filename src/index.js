@@ -43,14 +43,6 @@ app.get('/ping', (req, res) => {
 io.on('connection', (socket) => {
     console.log('a user connected', socket.id);
 
-    // socket.on('messageFromClient', (data) => {
-    //     //To receive a message from client
-    //     console.log('Message from Client', data);
-
-    //     //To broadcast a message to all the clients
-    //     io.emit('new message', data.toUpperCase());
-    // })
-
     MessageSockethandlers(io, socket);
     ChannelSockethandlers(io, socket);
 
@@ -65,11 +57,4 @@ io.on('connection', (socket) => {
 server.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
     connectDB();
-    // const mailResponse = await mailer.sendMail({
-    //     from: 'email.akash2010@gmail.com',
-    //     to: 'email.akash2010@gmail.com',
-    //     subject: 'Test email',
-    //     text: 'This is a test email'
-    // });
-    // console.log(mailResponse);
 });
