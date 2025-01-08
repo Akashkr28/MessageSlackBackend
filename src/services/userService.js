@@ -81,8 +81,8 @@ export const signInService = async (data) => {
         const user = await userRepository.getUserByEmail(data.email);
         if(!user) {
             throw new ClientError({
-                explanation: 'Inavalid data sent from the client',
-                messgae: 'User does not exist',
+                explanation: 'Invalid data sent from the client',
+                message: 'User does not exist',
                 statusCode: StatusCodes.NOT_FOUND
             });
         }
@@ -91,8 +91,8 @@ export const signInService = async (data) => {
         const isMatch = bcrypt.compareSync(data.password, user.password);
         if(!isMatch) {
             throw new ClientError({
-                explanation: 'Inavalid data sent from the client',
-                messgae: 'Invalid password, please try again',
+                explanation: 'Invalid data sent from the client',
+                message: 'Invalid password, please try again',
                 statusCode: StatusCodes.BAD_REQUEST
             });
         }
@@ -106,5 +106,6 @@ export const signInService = async (data) => {
         }
     } catch (error) {
         console.log("User Service Error", error);
+        throw error;
     }
 }
