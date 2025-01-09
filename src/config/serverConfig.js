@@ -33,3 +33,11 @@ export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
 export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+
+export const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
+
+export const RAZORPAY_SECRET_KEY = process.env.RAZORPAY_SECRET_KEY;
+
+export const CURRENCY = process.env.CURRENCY || "INR";
+
+export const RECEIPT_SECRET = process.env.RECEIPT_SECRET || 'receipt_1103';
